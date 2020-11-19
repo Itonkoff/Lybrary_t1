@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.kofu.brighton.lybrary.fragments.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.kofu.brighton.lybrary.fragments.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_newBookFragment"
+            app:destination="@id/newBookFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_scanFragment"
+            app:destination="@id/scanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.kofu.brighton.lybrary.fragments.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_registrationFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newBookFragment"
+        android:name="com.kofu.brighton.lybrary.fragments.NewBookFragment"
+        android:label="fragment_new_book"
+        tools:layout="@layout/fragment_new_book" />
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.kofu.brighton.lybrary.fragments.ScanFragment"
+        android:label="fragment_scan"
+        tools:layout="@layout/fragment_scan">
+
+        <argument
+            android:name="book"
+            app:argType="integer"
+            />
+
+    </fragment>
+
+
+
+</navigation>
