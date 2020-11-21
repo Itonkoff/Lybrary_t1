@@ -52,6 +52,7 @@ public class ScanFragment extends Fragment {
     private APIService mApiService;
     private CodeScanner mCodeScanner;
     private View mView;
+    private CodeScannerView mCodeScannerView;
 
     public ScanFragment() {
         // Required empty public constructor
@@ -95,12 +96,12 @@ public class ScanFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mView = view;
-
         mBookId = ScanFragmentArgs.fromBundle(getArguments()).getBook();
 
         MainActivityCallBacks activity = (MainActivityCallBacks) getActivity();
         activity.hideFab();
+
+        mCodeScannerView = view.findViewById(R.id.scanner_v);
 
         verifyPermissions();
 
@@ -120,8 +121,7 @@ public class ScanFragment extends Fragment {
     }
 
     private void setUpCodeScanner() {
-        CodeScannerView codeScannerView = mView.findViewById(R.id.scanner_v);
-        mCodeScanner = new CodeScanner(getActivity(), codeScannerView);
+        mCodeScanner = new CodeScanner(getActivity(), mCodeScannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull Result result) {
@@ -142,15 +142,15 @@ public class ScanFragment extends Fragment {
                                     @Override
                                     public void onResponse(Call<BorrowBook> call, Response<BorrowBook> response) {
                                         if (response.code() == 200) {
-                                            Toast.makeText(getActivity(),"Book lent", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getActivity(), "Book lent", Toast.LENGTH_LONG).show();
                                         } else {
-                                            Toast.makeText(getActivity(),"Something went wrong in trying lend book", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getActivity(), "Something went wrong in trying lend book", Toast.LENGTH_LONG).show();
                                         }
                                     }
 
                                     @Override
                                     public void onFailure(Call<BorrowBook> call, Throwable t) {
-                                        Toast.makeText(getActivity(),"Failure", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getActivity(), "Failure", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
@@ -161,7 +161,7 @@ public class ScanFragment extends Fragment {
             }
         });
 
-        codeScannerView.setOnClickListener(new View.OnClickListener() {
+        mCodeScannerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCodeScanner.startPreview();
@@ -182,19 +182,23 @@ public class ScanFragment extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         verifyPermissions();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        mCodeScanner.startPreview();
+        if (mCodeScanner != null)
+            mCodeScanner.startPreview();
     }
 
     @Override
     public void onPause() {
-        mCodeScanner.releaseResources();
+        if (mCodeScanner != null)
+            mCodeScanner.releaseResources();
         mView = null;
         super.onPause();
     }

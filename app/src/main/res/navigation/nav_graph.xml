@@ -13,10 +13,14 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_FirstFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
+            app:destination="@id/registrationFragment"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -26,7 +30,10 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/FirstFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/SecondFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_SecondFragment_to_newBookFragment"
             app:destination="@id/newBookFragment" />
@@ -41,10 +48,14 @@
         tools:layout="@layout/fragment_registration" >
         <action
             android:id="@+id/action_registrationFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/FirstFragment"
+            app:popUpTo="@id/registrationFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_registrationFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:popUpTo="@id/registrationFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/newBookFragment"
